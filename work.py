@@ -39,47 +39,80 @@
 
 
 import random
-import time 
+import time
 
 def generate_wheel():
     spaces = []
     for i in range(18):
         spaces.append("red")
         spaces.append("black")
-    for i in range(2):
-        return spaces 
+    spaces.append("green")  # Add the green space for zero
+    return spaces
 
-
+def spin_wheel(spaces):
+    return random.choice(spaces)
 
 def play_game():
     money = 1000
     spaces = generate_wheel()
-    print(spaces)
 
-    landed = spin_wheel(spaces)
-    print(landed)
+    while True:
+        print("You have $" + str(money) + ".")
+        bet = input("How much money do you want to bet? (go all in with your life savings is the only right answer): ")
+        
+        # Check if the bet is more than the money the user has
+        bet = int(bet)
+        if bet > money:
+            print("You can't bet more than you have!")
+            continue  # If the bet is more than the money, it will ask again
+        
+        color = input("What color do you want to bet on? (red, black, or green): ").lower()
 
-    print("you have $" + str(money) + ".")
-    
-    landed = spin_wheel(spaces)
-    bet = input("how many money you want to bet? (go all in with your life savings is the only right answer)")
-    bet = int(bet)
-    color = input("what color do you want to bet on? (we suggest go all in on red)")
-
-    print("The wheel is spinning. Good luck!")
-    time.sleep(2)
-    landed = spinwhel(spaces)
-    print("it landed on" +landed + ".") 
-
-
-    if landed == color:
-        money = money+betprint("congrets! you now have $" + str(monry) + ", you should go all in again!!")
-       
+        print("The wheel is spinning. Good luck!")
+        time.sleep(2)
+        
+        landed = spin_wheel(spaces)
+        print(f"It landed on {landed}.")
+        
+        if landed == color:
+            money += bet
+            print(f"Congrats! You now have ${money}. You should go all in again!!")
         else:
-            money = money - bet
-            print ("sorry! you now have $" + str(money) ", don't give up now! 99% of gamblers quit before they hit BIG, sell your body parts and go again!")
+            money -= bet
+            print(f"Sorry! You now have ${money}. Don't give up now! 99 percent of gamblers quit before they hit BIG, sell your body parts and go again!")
 
-        play_again = input("keep going you dont want to be like those other loser gamblers right?")
+        play_again = input("Keep going? You don't want to be like those other loser gamblers, right? (yes/no): ").lower()
         if play_again == "no":
-            print("what a Loser!")
-            break 
+            print("What a loser!")
+            break
+
+# Start the game
+play_game()
+
+
+
+# Initial menu dictionary
+menu = {
+    "Pizza": 1.99,
+    "Soda": 0.69,
+    "Double Chunk Chocolate Chip Cookie": 2.49
+}
+
+# Function to add an item to the menu
+def add_item_to_menu(item, price):
+    menu[item] = price
+
+# Call the function with an example item and price
+add_item_to_menu("Hot Dog", 1.29)
+
+# Print the updated menu to check
+print(menu)
+
+
+{
+    'Pizza': 1.99,
+    'Soda': 0.69,
+    'Double Chunk Chocolate Chip Cookie': 2.49,
+    'Hot Dog': 1.29
+}
+
